@@ -4,12 +4,7 @@ import Stack from "@mui/material/Stack";
 import AddIcon from "@material-ui/icons/Add";
 import GenerateForm from "../components/GenerateForm";
 
-// Have form here
-// can take in three para
-// open
-// close
-// type of report
-// how to know type from here?? state that changes everytime button is clickedd
+
 function GenerateReport() {
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("");

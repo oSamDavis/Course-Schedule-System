@@ -113,7 +113,7 @@ const GenerateForm = ({ open, handleClose, catalogType }) => {
           onChange={(e) => setReportData({ ...reportData, id: e.target.value })}
         />
         <div className={classes.file}>
-          Upload Transcript Sam Please
+          Upload Transcript  
           <input type="file" onChange={onChangeHandler} />
         </div>
         {catalogType === "MAJOR + GENED" ? (
