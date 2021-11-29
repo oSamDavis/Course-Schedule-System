@@ -1,0 +1,28 @@
+{
+  "name": "contact-book",
+  "version": "1.0.0",
+  "description": "web app for managing contacts",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server",
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "Sam Davis Omekara Jr.",
+  "license": "MIT",
+  "dependencies": {
+    "base64topdf": "^1.1.8",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.2.0",
+    "mongoose": "^6.0.12",
+    "multer": "^1.4.3",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "concurrently": "^6.3.0",
+    "nodemon": "^2.0.14"
+  }
+}
