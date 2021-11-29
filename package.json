@@ -19,6 +19,7 @@
     "express-async-handler": "^1.2.0",
     "mongoose": "^6.0.12",
     "multer": "^1.4.3",
+    "pdf2json": "^2.0.0",
     "request": "^2.88.2"
   },
   "devDependencies": {
