@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const reportSchema = mongoose.Schema({
   name: String,
   id: String,
-  // transcript: mongoose.Schema.Types.Mixed,
+  courseList: String,
+
   createdAt: {
     type: Date,
     default: new Date(),

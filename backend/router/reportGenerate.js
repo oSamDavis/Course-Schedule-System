@@ -1,56 +1,35 @@
 import express from "express";
-
+import Report from "../model/reportModel.js";
 const router = express.Router();
 import request from "request";
 
-router.route("/").get((req, res, next) => {
+router.route("/:id").get(async (req, res, next) => {
+  const report = await Report.findOne({ id: req.params.id }).exec();
+
+  console.log("backend is here , picked up")
+
+  if (!report) {
+    return res.status(404).send("id not in db");
+  }
+
+
   var data = {
     template: { shortid: "rkJTnK2ce" },
     data: {
       number: "1",
       student: {
-        name: "Sam Davis Omekara",
-        major: "Computer Science",
-        graduation: "May, 2022",
-        id: "97457",
+        name: report.name,
+        id: req.params.id,
       },
-      courses: [
-        {
-          name: "Programming I",
-          status: "✅",
-        },
-        {
-          name: "Programming II",
-          status: "❌",
-        },
-        {
-          name: "Calculus I",
-          status: "🚧",
-        },
-        {
-          name: "Calculus II",
-          status: "❌",
-        },
-        {
-          name: "Applied Computer Science",
-          status: "✅",
-        },
-        {
-          name: "Object Oriented Programming",
-          status: "🚧",
-        },
-      ],
+      courses: JSON.parse(report.courseList),
     },
-    // options: {
-    //   preview: false,
-    // },
   };
+
   var options = {
     uri: "http://localhost:8001/api/report",
     method: "POST",
     json: data,
   };
-
 
   request(options).pipe(res);
 });

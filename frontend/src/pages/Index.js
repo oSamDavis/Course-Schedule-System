@@ -19,7 +19,6 @@ function Index() {
         />
         <BigCardButton text="Generate Report" routeName="/generateReport" />
         <BigCardButton text="View Report" routeName="/viewReport" />
-        <BigCardButton text="Export Report" routeName="/exportReport" />
       </Stack>
 
       <Link to="/contact"> Go to Conatct Page</Link>

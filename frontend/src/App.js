@@ -7,7 +7,6 @@ import Index from "./pages/Index";
 import GenerateReport from "./pages/GenerateReport";
 import UpdateCatalog from "./pages/UpdateCatalog";
 import ViewReport from "./pages/ViewReport";
-import ExportReport from "./pages/ExportReport";
 
 function App() {
   return (
@@ -18,7 +17,6 @@ function App() {
         <Route path="/updateCatalog" exact component={UpdateCatalog} />
         <Route path="/generateReport" exact component={GenerateReport} />
         <Route path="/viewReport" exact component={ViewReport} />
-        <Route path="/exportReport" exact component={ExportReport} />
       </Router>
     </Container>
   );

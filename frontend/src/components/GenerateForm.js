@@ -21,12 +21,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// Have form here
-// can take in three para
-// open
-// close
-// type of report
-// how to know type from here?? state that changes everytime button is clickedd
 const GenerateForm = ({ open, handleClose, catalogType }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -46,7 +40,7 @@ const GenerateForm = ({ open, handleClose, catalogType }) => {
   const clearData = () => {
     setReportData(initialState);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     handleClose();
@@ -107,7 +101,7 @@ const GenerateForm = ({ open, handleClose, catalogType }) => {
           margin="dense"
           id="id"
           label="Enter Student ID"
-          type="number"
+          type="text"
           fullWidth
           value={reportData.id}
           onChange={(e) => setReportData({ ...reportData, id: e.target.value })}
