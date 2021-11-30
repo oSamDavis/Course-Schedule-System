@@ -2,11 +2,12 @@ import React from "react";
 import { Card, IconButton } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
-import EditIcon from "@material-ui/icons/Edit";
+import PreviewIcon from '@mui/icons-material/Preview';
 import DeleteIcon from "@material-ui/icons/Delete";
 import MaterialTable from "material-table";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteReport } from "../actions/reportActions";
+import { deleteReport, viewBackendReport} from "../actions/reportActions";
+
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -29,9 +30,14 @@ const ContactTable = () => {
   const reports = useSelector((state) => state.reports);
   console.log(reports);
 
-  const delContact = (id) => {
+  const delReport = (id) => {
     dispatch(deleteReport(id));
   };
+
+  const viewReport = (id)=>{
+    console.log("in here, before dispatch")
+    dispatch(viewBackendReport(id))
+  }
 
   return (
     <>
@@ -39,17 +45,6 @@ const ContactTable = () => {
         <MaterialTable
           title="Report Details"
           columns={[
-            {
-              title: "Image",
-              field: "selectedImage",
-              render: (rowData) => (
-                <img
-                  alt="UserImage"
-                  style={{ height: 36, borderRadius: "50%" }}
-                  src={""}
-                />
-              ),
-            },
             { title: "Name", field: "name" },
             { title: "ID", field: "id" },
             {
@@ -59,12 +54,14 @@ const ContactTable = () => {
                 rowData && (
                   <>
                     <IconButton color="primary">
-                      <EditIcon />
+                      <PreviewIcon onClick = {()=>{
+                        viewReport(rowData.id)
+                      }} />
                     </IconButton>
                     <IconButton
                       color="secondary"
                       onClick={() => {
-                        delContact(rowData._id);
+                        delReport(rowData._id);
                       }}
                     >
                       <DeleteIcon />

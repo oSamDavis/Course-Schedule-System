@@ -1,42 +1,55 @@
 import mongoose from "mongoose";
 import asyncHandler from "express-async-handler";
 import Report from "../model/reportModel.js";
-import Base64ToPDF from "base64topdf";
 import fs from "fs";
+import formatReport from "../router/reportGenerateUtil.js";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
+import { getJsonFromPdf, generateSingleReport } from "../utils.js";
+import fsp from "fs/promises";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+async function generateReportsJson() {
+  var files = await fsp.readdir(path.join(__dirname, "..", "transcripts"));
+
+  if (!files) {
+    console.log("error processing files");
+    return;
+  }
+
+  for (var i = 0; i < files.length; i++) {
+    await getJsonFromPdf(
+      path.join(__dirname, "..", "transcripts", files[i]),
+      path.join(__dirname, "..", "router", "reports")
+    );
+  }
+}
 
 const createReport = asyncHandler(async (req, res) => {
-  const { name, id, transcript } = req.body;
+  await generateReportsJson();
 
-  // convert transcript to base 64
-  // fs.writeFile(path.join(__dirname, "temp", `${id}.json`), "", (e) => {
+  const { name, id } = req.body;
 
-  //   console.log(e);
-  // });
+  // get courseList
 
-  // const __filename = fileURLToPath(import.meta.url);
-  // const __dirname = dirname(__filename);
-  // let decodedBase64 = Base64ToPDF.base64Decode(
-  //   transcript,
-  //   path.join(__dirname, `try.pdf`)
-  // );
+  var courseData = await formatReport(id);
+  var courseList = JSON.stringify(courseData);
 
-  // const newTranscript = decodedBase64;
-  // newTranscript
+  console.log(courseList);
+  while (!courseList) {
+    courseData = await formatReport(id);
+    courseList = JSON.stringify(courseData);
+  }
 
-  console.log(transcript);
-
+  // create new report, from name, id and courseList
   const newReport = new Report({
     name,
     id,
-    // transcript,
+    courseList,
   });
 
   try {
-    // use utils here to generate report
-    // save report
-    console.log(transcript);
     await newReport.save(); // until everything is done
     res.status(201).json(newReport);
   } catch (error) {

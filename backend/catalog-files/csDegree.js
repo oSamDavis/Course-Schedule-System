@@ -1,4 +1,4 @@
-[
+const csDegree= [
     {
       "courseId": "CSCI-143",
       "courseName": "Applied Computer Science",
@@ -162,3 +162,5 @@
       "consent": false
     }
    ]
+
+   export default csDegree
